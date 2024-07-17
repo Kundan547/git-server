@@ -1,0 +1,25 @@
+name: Create Pull Request on Push to Main
+
+   on:
+     push:
+       branches:
+         - main
+
+   jobs:
+     create_pr:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v2
+           with:
+             fetch-depth: 0
+         - name: Create Pull Request
+           uses: peter-evans/create-pull-request@v5
+           with:
+             token: ${{ secrets.GITHUB_TOKEN }}
+             commit-message: Automated PR for main branch push
+             title: 'Automated PR: New changes in main branch'
+             body: |
+               This is an automated pull request created after a push to the main branch.
+               Please review the changes and merge if appropriate.
+             branch: automated-pr-branch
+             base: main
